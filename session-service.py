@@ -22,6 +22,7 @@
 import os
 #import gobject
 from gi.repository import GObject as gobject
+from gi.repository import GLib
 
 import dbus
 import dbus.service
@@ -99,5 +100,5 @@ if __name__ == '__main__':
     Webcam(notify, session_bus, SESSION_OBJECT_PATH_WEBCAM)
     Wireless(notify, session_bus, SESSION_OBJECT_PATH_WIRELESS)
 
-    mainloop = gobject.MainLoop()
+    mainloop = GLib.MainLoop()
     mainloop.run()

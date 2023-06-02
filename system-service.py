@@ -23,6 +23,7 @@ import os
 
 #import gobject
 from gi.repository import GObject as gobject
+from gi.repository import GLib
 
 import subprocess
 
@@ -217,5 +218,5 @@ if __name__ == '__main__':
     webcam = Webcam(bus, SYSTEM_OBJECT_PATH_WEBCAM)
     wireless = Wireless(bus, SYSTEM_OBJECT_PATH_WIRELESS)
 
-    mainloop = gobject.MainLoop()
+    mainloop = GLib.MainLoop()
     mainloop.run()
