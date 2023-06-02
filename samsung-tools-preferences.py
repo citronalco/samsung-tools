@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # coding=UTF-8
 #
 # Samsung-Tools
@@ -22,8 +22,12 @@
 import os
 import sys
 import time
-import gtk
-import gobject
+#import gtk
+import gi
+gi.require_version('Gtk','3.0')
+from gi.repository import Gtk as gtk
+#import gobject
+from gi.repository import GObject as gobject
 import dbus
 
 import gettext
@@ -60,7 +64,7 @@ class Popup (gtk.Window):
 
 class KeyGrabber(gtk.Button):
     # Key Grabber (based on code from compizconfig-settings-manager)
-    __gsignals__ = {"changed": (gobject.SIGNAL_RUN_FIRST,
+    __gsignals__ = {"changed": (gobject.SignalFlags.RUN_FIRST,
                                 gobject.TYPE_NONE,
                                 [gobject.TYPE_INT, gobject.TYPE_INT])}
 
@@ -188,7 +192,7 @@ class KernelParametersDialog():
                 return dbus.Interface(proxy, SYSTEM_INTERFACE_NAME)
             except:
                 retry = retry - 1
-        print unicode(_("Unable to connect to system service!"), "utf-8")
+        print ("Unable to connect to system service!")
         sys.exit(1)
 
     def on_swappinessSpinbutton_valuechanged(self, button, event=None):
@@ -266,7 +270,7 @@ class PowerManagementDialog():
                 return dbus.Interface(proxy, SYSTEM_INTERFACE_NAME)
             except:
                 retry = retry - 1
-        print unicode(_("Unable to connect to system service!"), "utf-8")
+        print ("Unable to connect to system service!")
         sys.exit(1)
 
     def on_devicesPowerManagement_toggled(self, button=None):
@@ -366,7 +370,7 @@ class PhcDialog():
                 return dbus.Interface(proxy, SYSTEM_INTERFACE_NAME)
             except:
                 retry = retry - 1
-        print unicode(_("Unable to connect to system service!"), "utf-8")
+        print ("Unable to connect to system service!")
         sys.exit(1)
 
     def __connect_options(self):
@@ -379,7 +383,7 @@ class PhcDialog():
                 return dbus.Interface(proxy, SYSTEM_INTERFACE_NAME)
             except:
                 retry = retry - 1
-        print unicode(_("Unable to connect to system service!"), "utf-8")
+        print ("Unable to connect to system service!")
         sys.exit(1)
 
     def quit(self, widget=None, event=None):
@@ -391,8 +395,8 @@ class PhcDialog():
         newvids = newvids.strip()
         conn = self.__connect_cpu()
         if conn.GetCurrentVids() != newvids:
-            title = unicode(_("Confirm"), "utf-8")
-            message = unicode(_("Apply the new VIDs?"), "utf-8")
+            title = "Confirm"
+            message = "Apply the new VIDs?"
             dialog = gtk.MessageDialog(
                 self.mainDialog,
                 gtk.DIALOG_MODAL,
@@ -444,7 +448,7 @@ class Main():
         self.sessionTable = self.builder.get_object("sessionTable")
         # Set backlight hotkey grabber
         self.backlightHotkeyButton = KeyGrabber(
-            popup_title=unicode(_("Backlight"), "utf-8"))
+            popup_title="Backlight")
         hotkey = session.GetBacklightHotkey()
         (key, mods) = gtk.accelerator_parse(
             self.__convert_xbindkeys_to_gtk(hotkey))
@@ -458,7 +462,7 @@ class Main():
         self.backlightHotkeyButton.show()
         # Set bluetooth hotkey grabber
         self.bluetoothHotkeyButton = KeyGrabber(
-            popup_title=unicode(_("Bluetooth"), "utf-8"))
+            popup_title="Bluetooth")
         hotkey = session.GetBluetoothHotkey()
         (key, mods) = gtk.accelerator_parse(
             self.__convert_xbindkeys_to_gtk(hotkey))
@@ -472,7 +476,7 @@ class Main():
         self.bluetoothHotkeyButton.show()
         # Set cpu hotkey grabber
         self.cpuHotkeyButton = KeyGrabber(
-            popup_title=unicode(_("CPU fan"), "utf-8"))
+            popup_title="CPU fan")
         hotkey = session.GetCpuHotkey()
         (key, mods) = gtk.accelerator_parse(
             self.__convert_xbindkeys_to_gtk(hotkey))
@@ -485,7 +489,7 @@ class Main():
         self.cpuHotkeyButton.show()
         # Set webcam hotkey grabber
         self.webcamHotkeyButton = KeyGrabber(
-            popup_title=unicode(_("Webcam"), "utf-8"))
+            popup_title="Webcam")
         hotkey = session.GetWebcamHotkey()
         (key, mods) = gtk.accelerator_parse(
             self.__convert_xbindkeys_to_gtk(hotkey))
@@ -499,7 +503,7 @@ class Main():
         self.webcamHotkeyButton.show()
         # Set wireless hotkey grabber
         self.wirelessHotkeyButton = KeyGrabber(
-            popup_title=unicode(_("Wireless"), "utf-8"))
+            popup_title="Wireless")
         hotkey = session.GetWirelessHotkey()
         (key, mods) = gtk.accelerator_parse(
             self.__convert_xbindkeys_to_gtk(hotkey))
@@ -758,9 +762,7 @@ class Main():
         if not conn.IsPHCAvailable():
             self.phcButton.set_sensitive(False)
             self.phcButton.set_has_tooltip(True)
-            tooltip = unicode(
-                _("You need a PHC enabled kernel to use this feature"),
-                "utf-8")
+            tooltip = "You need a PHC enabled kernel to use this feature"
             self.phcButton.set_tooltip_text(tooltip)
         else:
             self.phcButton.set_sensitive(True)
@@ -785,7 +787,7 @@ class Main():
                 return dbus.Interface(proxy, SESSION_INTERFACE_NAME)
             except:
                 retry = retry - 1
-        print unicode(_("Unable to connect to session service!"), "utf-8")
+        print ("Unable to connect to session service!")
         sys.exit(1)
 
     def __connect_session_bluetooth(self):
@@ -850,7 +852,7 @@ class Main():
                 return dbus.Interface(proxy, SYSTEM_INTERFACE_NAME)
             except:
                 retry = retry - 1
-        print unicode(_("Unable to connect to system service!"), "utf-8")
+        print ("Unable to connect to system service!")
         sys.exit(1)
 
     def __connect_system_sysctl(self):
@@ -863,7 +865,7 @@ class Main():
                 return dbus.Interface(proxy, SYSTEM_INTERFACE_NAME)
             except:
                 retry = retry - 1
-        print unicode(_("Unable to connect to system service!"), "utf-8")
+        print ("Unable to connect to system service!")
         sys.exit(1)
 
     def __connect_system_cpu(self):
@@ -876,7 +878,7 @@ class Main():
                 return dbus.Interface(proxy, SYSTEM_INTERFACE_NAME)
             except:
                 retry = retry - 1
-        print unicode(_("Unable to connect to system service!"), "utf-8")
+        print ("Unable to connect to system service!")
         sys.exit(1)
 
     def __convert_gtk_to_xbindkeys(self, hotkey):
@@ -1141,12 +1143,11 @@ class Main():
         PowerManagementDialog(self.mainWindow)
 
     def on_phcButton_clicked(self, button):
-        title = unicode(_("Caution!"), "utf-8")
-        message = unicode(
-            _("CPU undervolting can lead to significant gains in terms of power energy saving, \
+        title = "Caution!"
+        message = "CPU undervolting can lead to significant gains in terms of power energy saving, \
 however <b>IT IS A RISKY PRACTICE</b> that might result in malfunctions \
 and loss of data. Please be sure to know what you are doing, prior to use these options.\n\n\
-Are you sure you want to continue?"), "utf-8")
+Are you sure you want to continue?"
         dialog = gtk.MessageDialog(
             self.mainWindow,
             gtk.DIALOG_MODAL,
@@ -1169,7 +1170,7 @@ Are you sure you want to continue?"), "utf-8")
         dialog.set_icon_from_file(SAMSUNG_TOOLS_ICON)
         dialog.set_name(APP_NAME)
         dialog.set_version(APP_VERSION)
-        copyright = unicode(_("Released under GPLv3 license"), "utf-8") + \
+        copyright = "Released under GPLv3 license" + \
             "\n\nCopyleft by\nFortunato Ventre\nvorione@gmail.com"
         dialog.set_copyright(copyright)
         dialog.set_website("http://loms.voria.org")

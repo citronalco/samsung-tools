@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # coding=UTF-8
 #
 # Samsung-Tools
@@ -20,7 +20,10 @@
 # <http://www.gnu.org/licenses/gpl.txt>
 
 import os
-import gobject
+
+#import gobject
+from gi.repository import GObject as gobject
+
 import subprocess
 
 import dbus

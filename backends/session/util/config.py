@@ -20,7 +20,7 @@
 
 import os
 import shutil
-import ConfigParser
+import configparser as ConfigParser
 
 from backends.globals import *
 

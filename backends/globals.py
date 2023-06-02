@@ -24,7 +24,7 @@ import sys
 import os.path
 
 APP_NAME = "Samsung Tools"
-APP_VERSION = "2.3.3"
+APP_VERSION = "2.4.0"
 WORK_DIRECTORY = "/usr/share/samsung-tools"
 
 AUTHORS_LIST = [
@@ -32,7 +32,8 @@ AUTHORS_LIST = [
 ]
 ARTISTS_LIST = [
     "Fortunato Ventre",
-    "Angelo Giovanni Giudice"
+    "Angelo Giovanni Giudice",
+    "Bernhard Geier"
 ]
 TRANSLATORS_LIST = [
     "Fortunato Ventre",

@@ -30,8 +30,8 @@ install:
 	$(install_script) pm/sleep.d/20_samsung-tools $(DESTDIR)/usr/lib/pm-utils/sleep.d/
 	$(install_dir) $(DESTDIR)/usr/lib/pm-utils/power.d/
 	$(install_script) pm/power.d/* $(DESTDIR)/usr/lib/pm-utils/power.d/
-	$(install_dir) $(DESTDIR)/usr/lib/systemd/system/
-	$(install_file) systemd/samsung-tools.service $(DESTDIR)/usr/lib/systemd/system/
+	$(install_dir) $(DESTDIR)/lib/systemd/system/
+	$(install_file) systemd/samsung-tools.service $(DESTDIR)/lib/systemd/system/
 	# Locales
 	$(shell po/install.sh $(DESTDIR))
 	# CLI
@@ -71,6 +71,6 @@ uninstall:
 	rm -rf $(DESTDIR)/etc/samsung-tools/
 	rm -rf $(DESTDIR)/usr/lib/pm-utils/sleep.d/20_samsung-tools
 	rm -rf $(DESTDIR)/usr/lib/pm-utils/power.d/samsung-tools_*
-	rm -rf $(DESTDIR)/usr/lib/systemd/system/samsung-tools.service
+	rm -rf $(DESTDIR)/lib/systemd/system/samsung-tools.service
 	rm -rf $(DESTDIR)/etc/xdg/autostart/samsung-tools-session-service.desktop
 	rm -rf $(DESTDIR)/usr/share/applications/samsung-tools-preferences.desktop
